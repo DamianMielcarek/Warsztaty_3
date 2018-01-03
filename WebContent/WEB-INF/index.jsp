@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>The latest solutions</h1>
+<h2>The latest solutions</h2>
 
 <table>
     <thead>
