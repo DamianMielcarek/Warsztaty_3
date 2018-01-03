@@ -34,15 +34,15 @@ public class Group {
 
     static public Group loadGroupById(int id) throws SQLException {
         Connection conn = DbUtil.getConn();
-        String sql = "SELECT * FROM User_group WHERE id = ?";
+        String sql = "SELECT * FROM User_group WHERE id = ?;";
         PreparedStatement preparedStatement;
         preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             Group loadedGroup = new Group();
-            loadedGroup.id = resultSet.getInt("id");
-            loadedGroup.name = resultSet.getString("name");
+            loadedGroup.setId(resultSet.getInt("id"));
+            loadedGroup.setName(resultSet.getString("name"));
             return loadedGroup;
         }
         return null;
@@ -53,12 +53,12 @@ public class Group {
         ArrayList<Group> groupsList = new ArrayList<>();
 
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM User_group");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM User_group;");
 
         while (resultSet.next()) {
             Group loadedGroup = new Group();
-            loadedGroup.id = resultSet.getInt("id");
-            loadedGroup.name = resultSet.getString("name");
+            loadedGroup.setId(resultSet.getInt("id"));
+            loadedGroup.setName(resultSet.getString("name"));
 
             groupsList.add(loadedGroup);
         }
@@ -71,27 +71,27 @@ public class Group {
 
     public Group saveToDB() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if ( this.getId() == 0 ) {
-            String sql = "INSERT INTO User_group (name) VALUES (?)";
+        if ( getId() == 0 ) {
+            String sql = "INSERT INTO User_group (name) VALUES (?);";
             String[] generatedColumns = {"ID"};
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql, generatedColumns);
-            preparedStatement.setString(1, this.name);
+            preparedStatement.setString(1, getName());
 
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                this.setId(rs.getInt(1));
+                setId(rs.getInt(1));
             }
         } else {
-            String sql = "UPDATE User_group SET name = ? WHERE id = ?";
+            String sql = "UPDATE User_group SET name = ? WHERE id = ?;";
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, this.name);
-            preparedStatement.setInt(2, this.id);
+            preparedStatement.setString(1, getName());
+            preparedStatement.setInt(2, getId());
 
             preparedStatement.executeUpdate();
         }
@@ -100,20 +100,21 @@ public class Group {
 
     public void delete() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if (this.id != 0) {
-            String sql = "DELETE FROM User_group WHERE id = ?";
+        if (getId() != 0) {
+            String sql = "DELETE FROM User_group WHERE id = ?;";
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, this.id);
+            preparedStatement.setInt(1, getId());
             preparedStatement.executeUpdate();
-            this.id=0;
+            setId(0);
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getId()).append(" ").append(this.getName());
+        sb.append(getId()).append(" ")
+                .append(getName());
         return sb.toString();
     }
 

@@ -45,16 +45,16 @@ public class Exercise {
 
     static public Exercise loadExerciseById(int id) throws SQLException {
         Connection conn = DbUtil.getConn();
-        String sql = "SELECT * FROM Exercise WHERE id = ?";
+        String sql = "SELECT * FROM Exercise WHERE id = ?;";
         PreparedStatement preparedStatement;
         preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             Exercise loadedExercise = new Exercise();
-            loadedExercise.id = resultSet.getInt("id");
-            loadedExercise.title = resultSet.getString("title");
-            loadedExercise.description = resultSet.getString("description");
+            loadedExercise.setId(resultSet.getInt("id"));
+            loadedExercise.setTitle(resultSet.getString("title"));
+            loadedExercise.setDescription(resultSet.getString("description"));
             return loadedExercise;
         }
         return null;
@@ -110,13 +110,13 @@ public class Exercise {
         ArrayList<Exercise> exercisesList = new ArrayList<>();
 
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Exercise");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Exercise;");
 
         while (resultSet.next()) {
             Exercise loadedExercise = new Exercise();
-            loadedExercise.id = resultSet.getInt("id");
-            loadedExercise.title = resultSet.getString("title");
-            loadedExercise.description = resultSet.getString("description");
+            loadedExercise.setId(resultSet.getInt("id"));
+            loadedExercise.setTitle(resultSet.getString("title"));
+            loadedExercise.setDescription(resultSet.getString("description"));
 
             exercisesList.add(loadedExercise);
         }
@@ -129,29 +129,29 @@ public class Exercise {
 
     public Exercise saveToDB() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if ( this.getId() == 0 ) {
-            String sql = "INSERT INTO Exercise (title, description) VALUES (?, ?)";
+        if (getId() == 0) {
+            String sql = "INSERT INTO Exercise (title, description) VALUES (?, ?);";
             String[] generatedColumns = {"ID"};
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql, generatedColumns);
-            preparedStatement.setString(1, this.title);
-            preparedStatement.setString(2, this.description);
+            preparedStatement.setString(1, getTitle());
+            preparedStatement.setString(2, getDescription());
 
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                this.setId(rs.getInt(1));
+                setId(rs.getInt(1));
             }
         } else {
-            String sql = "UPDATE Exercise SET title = ?, description = ? WHERE id = ?";
+            String sql = "UPDATE Exercise SET title = ?, description = ? WHERE id = ?;";
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, this.title);
-            preparedStatement.setString(2, this.description);
-            preparedStatement.setInt(3, this.id);
+            preparedStatement.setString(1, getTitle());
+            preparedStatement.setString(2, getDescription());
+            preparedStatement.setInt(3, getId());
 
             preparedStatement.executeUpdate();
         }
@@ -160,22 +160,22 @@ public class Exercise {
 
     public void delete() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if (this.id != 0) {
-            String sql = "DELETE FROM Exercise WHERE id = ?";
+        if (getId() != 0) {
+            String sql = "DELETE FROM Exercise WHERE id = ?;";
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, this.id);
+            preparedStatement.setInt(1, getId());
             preparedStatement.executeUpdate();
-            this.id=0;
+            setId(0);
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getId()).append(" ")
-                .append(this.getTitle()).append(" ")
-                .append(this.getDescription());
+        sb.append(getId()).append(" ")
+                .append(getTitle()).append(" ")
+                .append(getDescription());
         return sb.toString();
     }
 

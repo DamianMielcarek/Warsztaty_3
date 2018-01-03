@@ -69,18 +69,18 @@ public class User {
 
     static public User loadUserById(int id) throws SQLException {
         Connection conn = DbUtil.getConn();
-        String sql = "SELECT * FROM Users WHERE id=?";
+        String sql = "SELECT * FROM Users WHERE id = ?;";
         PreparedStatement preparedStatement;
         preparedStatement = conn.prepareStatement(sql);
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             User loadedUser = new User();
-            loadedUser.id = resultSet.getInt("id");
-            loadedUser.username = resultSet.getString("username");
-            loadedUser.email = resultSet.getString("email");
-            loadedUser.password = resultSet.getString("password");
-            loadedUser.user_group_id = resultSet.getInt("user_group_id");
+            loadedUser.setId(id);
+            loadedUser.setUsername(resultSet.getString("username"));
+            loadedUser.setEmail(resultSet.getString("email"));
+            loadedUser.setPassword(resultSet.getString("password"));
+            loadedUser.setUser_group_id(resultSet.getInt("user_group_id"));
             return loadedUser;
         }
         return null;
@@ -95,11 +95,11 @@ public class User {
 
         while (user.next()) {
             User loadedUser = new User();
-            loadedUser.id = user.getInt("id");
-            loadedUser.username = user.getString("username");
-            loadedUser.email = user.getString("email");
-            loadedUser.password = user.getString("password");
-            loadedUser.user_group_id = user_group_id;
+            loadedUser.setId(user.getInt("id"));
+            loadedUser.setUsername(user.getString("username"));
+            loadedUser.setEmail(user.getString("email"));
+            loadedUser.setPassword(user.getString("password"));
+            loadedUser.setUser_group_id(user_group_id);
 
             usersList.add(loadedUser);
         }
@@ -115,15 +115,15 @@ public class User {
         ArrayList<User> usersList = new ArrayList<>();
 
         Statement statement = conn.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM Users");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Users;");
 
         while ( resultSet.next() ) {
             User loadedUser = new User();
-            loadedUser.id = resultSet.getInt("id");
-            loadedUser.username = resultSet.getString("username");
-            loadedUser.email = resultSet.getString("email");
-            loadedUser.password = resultSet.getString("password");
-            loadedUser.user_group_id = resultSet.getInt("user_group_id");
+            loadedUser.setId(resultSet.getInt("id"));
+            loadedUser.setUsername(resultSet.getString("username"));
+            loadedUser.setEmail(resultSet.getString("email"));
+            loadedUser.setPassword(resultSet.getString("password"));
+            loadedUser.setUser_group_id(resultSet.getInt("user_group_id"));
 
             usersList.add(loadedUser);
         }
@@ -136,33 +136,33 @@ public class User {
 
     public User saveToDB() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if ( this.getId() == 0 ) {
-            String sql = "INSERT INTO Users (username, email, password, user_group_id) VALUES (?, ?, ?, ?)";
+        if (getId() == 0) {
+            String sql = "INSERT INTO Users (username, email, password, user_group_id) VALUES (?, ?, ?, ?);";
             String[] generatedColumns = {"ID"};
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql, generatedColumns);
-            preparedStatement.setString(1, this.username);
-            preparedStatement.setString(2, this.email);
-            preparedStatement.setString(3, this.password);
-            preparedStatement.setInt(4, this.user_group_id);
+            preparedStatement.setString(1, getUsername());
+            preparedStatement.setString(2, getEmail());
+            preparedStatement.setString(3, getPassword());
+            preparedStatement.setInt(4, getUser_group_id());
 
             preparedStatement.executeUpdate();
 
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
-                this.setId(rs.getInt(1));
+                setId(rs.getInt(1));
             }
         } else {
-            String sql = "UPDATE Users SET username = ?, email = ?, password = ?, user_group_id = ? WHERE id = ?";
+            String sql = "UPDATE Users SET username = ?, email = ?, password = ?, user_group_id = ? WHERE id = ?;";
 
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setString(1, this.username);
-            preparedStatement.setString(2, this.email);
-            preparedStatement.setString(3, this.password);
-            preparedStatement.setInt(4, this.user_group_id);
-            preparedStatement.setInt(5, this.id);
+            preparedStatement.setString(1, getUsername());
+            preparedStatement.setString(2, getEmail());
+            preparedStatement.setString(3, getPassword());
+            preparedStatement.setInt(4, getUser_group_id());
+            preparedStatement.setInt(5, getId());
 
             preparedStatement.executeUpdate();
         }
@@ -171,24 +171,24 @@ public class User {
 
     public void delete() throws SQLException, NullPointerException {
         Connection conn = DbUtil.getConn();
-        if (this.id != 0) {
-            String sql = "DELETE FROM Users WHERE id = ?";
+        if (getId() != 0) {
+            String sql = "DELETE FROM Users WHERE id = ?;";
             PreparedStatement preparedStatement;
             preparedStatement = conn.prepareStatement(sql);
-            preparedStatement.setInt(1, this.id);
+            preparedStatement.setInt(1, getId());
             preparedStatement.executeUpdate();
-            this.id=0;
+            setId(0);
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append(this.getId()).append(" ")
-                .append(this.getUsername()).append(" ")
-                .append(this.getEmail()).append(" ")
-                .append(this.getPassword()).append(" ")
-                .append(this.getUser_group_id());
+        sb.append(getId()).append(" ")
+                .append(getUsername()).append(" ")
+                .append(getEmail()).append(" ")
+                .append(getPassword()).append(" ")
+                .append(getUser_group_id());
         return sb.toString();
     }
 
