@@ -26,7 +26,7 @@
                 <td>${solutions[loopStatus.getIndex()].getExercise_id()}</td>
                 <td>${solutions[loopStatus.getIndex()].getUsers_id()}</td>
                 <td>${solutions[loopStatus.getIndex()].getUpdated()}</td>
-                <td>${solutions[loopStatus.getIndex()].getDescription()}</td>
+                <td><a href='<c:url value ="/solution_details?id=${solutions[loopStatus.getIndex()].getId()}"/>'>details</a></td>
             </tr>
         </c:forEach>
     </tbody>

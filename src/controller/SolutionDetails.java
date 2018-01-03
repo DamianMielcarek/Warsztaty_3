@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet("/")
-public class Start extends HttpServlet {
+@WebServlet("/solution_details")
+public class SolutionDetails extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            String solutionsNumber = getServletContext().getInitParameter("number-solutions");
-            Solution[] solutions = Solution.loadAll(Integer.parseInt(solutionsNumber));
-            request.setAttribute("solutions", solutions);
-            getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            int id = Integer.parseInt(request.getParameter("id"));
+            Solution solution = Solution.loadSolutionById(id);
+            request.setAttribute("solution", solution);
+            request.getServletContext().getRequestDispatcher("/WEB-INF/solution_details.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
         }
