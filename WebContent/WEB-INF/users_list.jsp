@@ -12,17 +12,15 @@
 <table>
     <thead>
     <tr>
-        <th>id</th>
         <th>username</th>
-        <th>email</th>
+        <th>id</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach begin="0" end="${fn:length(users) - 1}" varStatus="loopStatus">
         <tr>
-            <td>${users[loopStatus.getIndex()].getId()}</td>
             <td>${users[loopStatus.getIndex()].getUsername()}</td>
-            <td>${users[loopStatus.getIndex()].getEmail()}</td>
+            <td><a href='<c:url value ="/user_details?id=${users[loopStatus.getIndex()].getId()}"/>'>${users[loopStatus.getIndex()].getId()}</a></td>
         </tr>
     </c:forEach>
     </tbody>

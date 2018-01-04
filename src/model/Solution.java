@@ -130,6 +130,31 @@ public class Solution {
         return solutionsArray;
     }
 
+    static public Solution[] loadAllByUsersId(int users_id) throws SQLException {
+        Connection conn = DbUtil.getConn();
+        ArrayList<Solution> solutionsList = new ArrayList<>();
+        PreparedStatement preparedStatement = conn.prepareStatement("SELECT * FROM Solution WHERE users_id = ? ORDER BY updated DESC;");
+        preparedStatement.setInt(1, users_id);
+        ResultSet solution = preparedStatement.executeQuery();
+
+        while (solution.next()) {
+            Solution loadedSolution = new Solution();
+            loadedSolution.setId(solution.getInt("id"));
+            loadedSolution.setCreated(solution.getString("created"));
+            loadedSolution.setUpdated(solution.getString("updated"));
+            loadedSolution.setDescription(solution.getString("description"));
+            loadedSolution.setExercise_id(solution.getInt("exercise_id"));
+            loadedSolution.setUsers_id(users_id);
+
+            solutionsList.add(loadedSolution);
+        }
+
+        Solution[] solutionsArray = new Solution[solutionsList.size()];
+        solutionsArray = solutionsList.toArray(solutionsArray);
+
+        return solutionsArray;
+    }
+
     static public Solution[] loadAll(int limit) throws SQLException {
         Connection conn = DbUtil.getConn();
         ArrayList<Solution> solutionsList = new ArrayList<>();
