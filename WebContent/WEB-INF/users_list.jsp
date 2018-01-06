@@ -19,8 +19,8 @@
     <tbody>
     <c:forEach begin="0" end="${fn:length(users) - 1}" varStatus="loopStatus">
         <tr>
-            <td>${users[loopStatus.getIndex()].getUsername()}</td>
-            <td><a href='<c:url value ="/user_details?id=${users[loopStatus.getIndex()].getId()}"/>'>${users[loopStatus.getIndex()].getId()}</a></td>
+            <td>${users[loopStatus.index].getUsername()}</td>
+            <td><a href='<c:url value ="/user_details?id=${users[loopStatus.index].getId()}"/>'>${users[loopStatus.index].getId()}</a></td>
         </tr>
     </c:forEach>
     </tbody>

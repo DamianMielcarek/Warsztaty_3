@@ -7,6 +7,7 @@
 <body>
 
 <h3><a href='<c:url value ="/groups_list"/>'>groups list</a></h3>
+<h3><a href='<c:url value ="/panel"/>'>admin panel</a></h3>
 
 </body>
 </html>

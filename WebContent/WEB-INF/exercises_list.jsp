@@ -20,9 +20,9 @@
     <tbody>
     <c:forEach begin="0" end="${fn:length(exercises) - 1}" varStatus="loopStatus">
         <tr>
-            <td>${exercises[loopStatus.getIndex()].getId()}</td>
-            <td>${exercises[loopStatus.getIndex()].getTitle()}</td>
-            <td><a href='<c:url value ="/exercise_details?id=${exercises[loopStatus.getIndex()].getId()}"/>'>details</a></td>
+            <td>${exercises[loopStatus.index].getId()}</td>
+            <td>${exercises[loopStatus.index].getTitle()}</td>
+            <td><a href='<c:url value ="/exercise_details?id=${exercises[loopStatus.index].getId()}"/>'>details</a></td>
         </tr>
     </c:forEach>
     </tbody>

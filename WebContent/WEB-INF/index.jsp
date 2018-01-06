@@ -23,10 +23,10 @@
     <tbody>
         <c:forEach begin="0" end="${fn:length(solutions) - 1}" varStatus="loopStatus">
             <tr>
-                <td>${solutions[loopStatus.getIndex()].getExercise_id()}</td>
-                <td>${solutions[loopStatus.getIndex()].getUsers_id()}</td>
-                <td>${solutions[loopStatus.getIndex()].getUpdated()}</td>
-                <td><a href='<c:url value ="/solution_details?id=${solutions[loopStatus.getIndex()].getId()}"/>'>details</a></td>
+                <td>${solutions[loopStatus.index].getExercise_id()}</td>
+                <td>${solutions[loopStatus.index].getUsers_id()}</td>
+                <td>${solutions[loopStatus.index].getUpdated()}</td>
+                <td><a href='<c:url value ="/solution_details?id=${solutions[loopStatus.index].getId()}"/>'>details</a></td>
             </tr>
         </c:forEach>
     </tbody>

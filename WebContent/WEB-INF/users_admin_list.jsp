@@ -22,11 +22,11 @@
     <tbody>
     <c:forEach begin="0" end="${fn:length(users) - 1}" varStatus="loopStatus">
         <tr>
-            <td>${users[loopStatus.getIndex()].getId()}</td>
-            <td>${users[loopStatus.getIndex()].getUsername()}</td>
-            <td>${users[loopStatus.getIndex()].getEmail()}</td>
-            <td>${users[loopStatus.getIndex()].getPassword()}</td>
-            <td>${users[loopStatus.getIndex()].getUser_group_id()}</td>
+            <td>${users[loopStatus.index].getId()}</td>
+            <td>${users[loopStatus.index].getUsername()}</td>
+            <td>${users[loopStatus.index].getEmail()}</td>
+            <td>${users[loopStatus.index].getPassword()}</td>
+            <td>${users[loopStatus.index].getUser_group_id()}</td>
         </tr>
     </c:forEach>
     </tbody>

@@ -3,24 +3,26 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <html>
 <head>
-    <title>Groups list</title>
+    <title>Groups management</title>
 </head>
 <body>
 
-<h2>Groups list</h2>
+<h2>Groups management</h2>
 
 <table>
     <thead>
     <tr>
-        <th>name</th>
         <th>id</th>
+        <th>name</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     <c:forEach begin="0" end="${fn:length(groups) - 1}" varStatus="loopStatus">
         <tr>
+            <td>${groups[loopStatus.index].getId()}</td>
             <td>${groups[loopStatus.index].getName()}</td>
-            <td><a href='<c:url value ="/users_list?id=${groups[loopStatus.index].getId()}"/>'>${groups[loopStatus.index].getId()}</a></td>
+            <td><a href='<c:url value ="/groups_edit?id=${groups[loopStatus.index].getId()}"/>'>edit</a></td>
         </tr>
     </c:forEach>
     </tbody>
