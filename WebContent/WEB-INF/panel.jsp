@@ -10,6 +10,7 @@
 <p><a href='<c:url value ="/groups_list"/>'>users groups</a></p>
 <p><a href='<c:url value ="/users_admin_list"/>'>users</a></p>
 <p><a href='<c:url value ="/groups_management"/>'>groups_management</a></p>
+<p><a href='<c:url value ="/users_management"/>'>users_management</a></p>
 
 </body>
 </html>
