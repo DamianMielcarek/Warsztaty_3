@@ -1,4 +1,4 @@
-# Warsztaty_3
+# Workshop_3
 
 Programming school.
 
